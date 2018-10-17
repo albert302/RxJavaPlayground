@@ -27,12 +27,13 @@ import java.util.Map;
 
 import retrofit2.Call;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements MainContract.View {
 
     private static final String TAG = MainFragment.class.getSimpleName();
 
     private MainViewModel mViewModel;
 
+    private MainContract.Presenter presenter;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -42,6 +43,8 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+        presenter = new MainPresenter(this);
 
         init();
 
@@ -60,6 +63,19 @@ public class MainFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        presenter.loadData();
+    }
+
+    @Override
+    public void loadCompleted(MainData mainData) {
+        Log.e(TAG, mainData.toString());
+
     }
 
     private void init() {
