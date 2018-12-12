@@ -33,7 +33,7 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     private MainViewModel mViewModel;
 
-    private MainContract.Presenter presenter;
+    public MainContract.Presenter presenter;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -70,6 +70,13 @@ public class MainFragment extends Fragment implements MainContract.View {
         super.onResume();
 
         presenter.loadData();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        presenter.onDetach();
     }
 
     @Override

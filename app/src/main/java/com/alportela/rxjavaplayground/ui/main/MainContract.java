@@ -9,6 +9,8 @@ public interface MainContract {
 
     interface Presenter {
 
+        void onDetach();
+
         void loadData();
     }
 }
